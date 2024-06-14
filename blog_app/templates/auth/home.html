@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center my-4">Bienvenido a este increíble sitio web de blogs</h1>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <p class="lead">En este sitio web puedes registrarte y iniciar sesión, y crear increíbles blogs (usando una cuenta de administrador). Con la cuenta de administrador puedes crear, actualizar y eliminar blogs, y con la cuenta de usuario normal puedes ver todos los blogs (con la cuenta de administrador también puedes hacerlo).</p>
+        
+        <div class="card my-3">
+            <div class="card-body">
+                <h5 class="card-title">Credenciales de la cuenta de administrador:</h5>
+                <p class="card-text"><strong>Nombre de usuario:</strong> Admin</p>
+                <p class="card-text"><strong>Contraseña:</strong> Pollo2024</p>
+            </div>
+        </div>
+        
+        {% if current_user.is_authenticated and current_user.is_admin %}
+            <p class="alert alert-success" role="alert">¡Bienvenido administrador! Puedes crear, eliminar y actualizar blogs, además de verlos.</p>
+            <p class="alert alert-danger" role="alert">¡Por favor, no publiques blogs irrespetuosos!</p>
+        {% elif current_user.is_authenticated and not current_user.is_admin %}
+            <p class="alert alert-info" role="alert">¡Bienvenido usuario! Solo puedes ver los blogs que el administrador puede hacer.</p>
+        {% else %}
+            <p class="alert alert-warning" role="alert">Por favor, inicia sesión o regístrate</p>
+        {% endif %}
+    </div>
+</div>
+
+<h2 class="text-center my-4">Características destacadas</h2>
+<div class="row justify-content-center">
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Registro e inicio de sesión</h5>
+                <p class="card-text">Permite a los usuarios registrarse e iniciar sesión fácilmente.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Creación de blogs</h5>
+                <p class="card-text">Los administradores pueden crear blogs interesantes y compartir conocimientos.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Actualización y eliminación de blogs</h5>
+                <p class="card-text">Funcionalidad para editar o eliminar blogs existentes según sea necesario.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">Visualización de blogs</h5>
+                <p class="card-text">Todos los usuarios pueden disfrutar leyendo los blogs disponibles.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

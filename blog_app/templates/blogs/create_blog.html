@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Crear Blog</h1>
+    <form id="createBlogForm" method="post" action="{{ url_for('blogs.create_blog') }}" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="name">Nombre del Blog</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Descripción</label>
+            <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="text">Texto del Blog</label>
+            <textarea class="form-control" id="text" name="text" rows="5" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="pic">Imagen del Blog</label>
+            <input type="file" class="form-control-file" id="pic" name="pic" accept="image/*" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Crear Blog</button>
+    </form>
+    <p id="errorMsg" class="text-danger"></p>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#createBlogForm').on('submit', function(e) {
+        e.preventDefault();
+
+        // Validación básica de los campos de texto
+        var name = $('#name').val().trim();
+        var description = $('#description').val().trim();
+        var text = $('#text').val().trim();
+
+        if (!name ||!description ||!text) {
+            $('#errorMsg').text("Todos los campos son obligatorios.");
+            return false;
+        }
+
+        // Puedes agregar aquí más validaciones según sea necesario
+
+        // Enviar el formulario
+        this.submit(); // Como estamos enviando archivos, usamos el método submit nativo del formulario
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Actualizar Blog</h1>
+        <form id="updateBlogForm" method="POST" action="{{ url_for('blogs.update_blog', blog_id=blog.id) }}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="title">Título:</label>
+                <input type="text" class="form-control" id="title" name="title" value="{{blog.name}}" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Descripción:</label>
+                <textarea class="form-control" id="description" name="description" rows="3">{{blog.description}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="text">Texto:</label>
+                <textarea class="form-control" id="text" name="text" rows="5">{{blog.text}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="pic">Imagen:</label>
+                <input type="file" class="form-control-file" id="pic" name="pic" accept="image/*">
+            </div>
+            <button type="submit" class="btn btn-primary">Actualizar Blog</button>
+        </form>
+        <p id="errorMsg" class="text-danger"></p>
+    </div>
+
+    <!-- Incluir jQuery y el script personalizado -->
+
+    <script>
+    $(document).ready(function() {
+        $('#updateBlogForm').on('submit', function(e) {
+            e.preventDefault();
+
+            // Validación básica de los campos de texto
+            var title = $('#title').val().trim();
+            var description = $('#description').val().trim();
+            var text = $('#text').val().trim();
+
+            if (!title ||!description ||!text) {
+                $('#errorMsg').text("Todos los campos son obligatorios.");
+                return false;
+            }
+
+            // Puedes agregar aquí más validaciones según sea necesario
+
+            // Enviar el formulario
+            this.submit(); // Como estamos enviando archivos, usamos el método submit nativo del formulario
+        });
+    });
+    </script>
+
+{% endblock %}
